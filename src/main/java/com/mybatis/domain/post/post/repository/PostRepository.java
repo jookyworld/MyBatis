@@ -3,7 +3,6 @@ package com.mybatis.domain.post.post.repository;
 import com.mybatis.domain.post.post.dto.Post;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -32,7 +31,10 @@ public interface PostRepository {
             title = #{title},
             content = #{content}
             """)
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int create(Post post);
+    int create(String title, String content);
 
+    @Select("""
+            SELECT LAST_INSERT_ID()
+            """)
+    int findLastInsertId();
 }

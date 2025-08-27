@@ -21,10 +21,7 @@ public class PostService {
     }
 
     public int create(String title, String content) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContent(content);
-        postRepository.create(post);
-        return post.getId();
+        postRepository.create(title, content);
+        return postRepository.findLastInsertId();
     }
 }
