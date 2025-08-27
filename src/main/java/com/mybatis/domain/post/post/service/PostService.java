@@ -28,4 +28,8 @@ public class PostService {
     public void deleteById(int id) {
         postRepository.deleteById(id);
     }
+
+    public void update(int id, String title, String content) {
+        postRepository.update(id, title, content);
+    }
 }

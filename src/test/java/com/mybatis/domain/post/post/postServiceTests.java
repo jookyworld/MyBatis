@@ -60,4 +60,20 @@ public class postServiceTests {
 
         assertThat(posts).hasSize(1);
     }
+
+    @Test
+    @DisplayName("게시물 수정")
+    void t6() {
+        //given
+        Post post = postService.findById(1);
+        assertThat(post).isNotNull();
+
+        //when
+        postService.update(post.getId(), "수정 제목 1", "수정 내용 1");
+        Post updatePost = postService.findById(1);
+
+        //then
+        assertThat(updatePost.getTitle()).isEqualTo("수정 제목 1");
+        assertThat(updatePost.getContent()).isEqualTo("수정 내용 1");
+    }
 }

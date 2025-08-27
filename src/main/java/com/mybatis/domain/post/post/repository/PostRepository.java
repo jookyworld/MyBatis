@@ -1,10 +1,7 @@
 package com.mybatis.domain.post.post.repository;
 
 import com.mybatis.domain.post.post.dto.Post;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -44,4 +41,13 @@ public interface PostRepository {
             WHERE id = #{id}
             """)
     void deleteById(int id);
+
+    @Update("""
+            UPDATE post
+            SET title = #{title},
+                content = #{content},
+                modifyDate = now()
+                WHERE id = #{id}
+            """)
+    void update(int id, String title, String content);
 }
