@@ -56,7 +56,7 @@ public interface PostRepository {
 
     @Select("""
             SELECT * FROM post
-            WHERE ${kwType} LIKE CONCAT('%', #{keyword},'%')
+            WHERE ${kwType} LIKE '%${keyword}%'
             """)
     List<Post> search(
             @Param("kwType") String kwType,
