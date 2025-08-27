@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Transactional
 @ActiveProfiles("test")
 @SpringBootTest
 public class postServiceTests {
@@ -88,6 +89,20 @@ public class postServiceTests {
         assertThat(posts2).hasSize(2);
 
         List<Post> posts3 = postService.search("title", "제목 2");
+        assertThat(posts3).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("게시물 내용 검색")
+    void t8() {
+        List<Post> posts1 = postService.search("content", "내용 1");
+        System.out.println(posts1);
+        assertThat(posts1).hasSize(1);
+
+        List<Post> posts2 = postService.search("content", "내용");
+        assertThat(posts2).hasSize(2);
+
+        List<Post> posts3 = postService.search("content", "내용 2");
         assertThat(posts3).hasSize(1);
     }
 }
