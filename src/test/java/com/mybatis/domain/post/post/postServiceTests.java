@@ -105,4 +105,44 @@ public class postServiceTests {
         List<Post> posts3 = postService.search("content", "내용 2");
         assertThat(posts3).hasSize(1);
     }
+
+    @Test
+    @DisplayName("게시물 제목 or 내용 검색")
+    void t9 () {
+        List<Post> posts = postService.search("", "제목 1");
+        assertThat(posts).hasSize(1);
+
+        posts = postService.search("", "제목");
+        assertThat(posts).hasSize(2);
+
+        posts = postService.search("", "제목 2");
+        assertThat(posts).hasSize(1);
+
+        posts = postService.search("", "내용 1");
+        assertThat(posts).hasSize(1);
+
+        posts = postService.search("", "내용");
+        assertThat(posts).hasSize(2);
+
+        posts = postService.search("", "내용 2");
+        assertThat(posts).hasSize(1);
+    }
+
+    @Test
+    @DisplayName("정렬된 게시물 조회 - 제목 오름차순")
+    void t10() {
+        List<Post> posts = postService.findAll("title", "asc");
+        assertThat(posts).hasSize(2);
+        assertThat(posts.get(0).getTitle()).isEqualTo("제목 1");
+        assertThat(posts.get(1).getTitle()).isEqualTo("제목 2");
+    }
+
+    @Test
+    @DisplayName("정렬된 게시물 조회 - 제목 내림차순")
+    void t11() {
+        List<Post> posts = postService.findAll("title", "desc");
+        assertThat(posts).hasSize(2);
+        assertThat(posts.get(0).getTitle()).isEqualTo("제목 2");
+        assertThat(posts.get(1).getTitle()).isEqualTo("제목 1");
+    }
 }

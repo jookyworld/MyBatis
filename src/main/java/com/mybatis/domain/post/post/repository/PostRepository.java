@@ -9,9 +9,23 @@ import java.util.List;
 public interface PostRepository {
 
     @Select("""
+            <script>
             SELECT * FROM post
+            <if test="orderBy!=null and orderBy!=''">
+                ORDER BY
+                <choose>
+                <when test="orderBy == 'title'">title</when>
+                <when test="orderBy == 'createDate'">createDate</when>
+                <when test="orderBy == 'modifyDate'">modifyDate</when>
+                </choose>
+                <if test="orderDirection != null and orderDirection.toLowerCase() == 'desc'">DESC</if>
+            </if>
+            </script>
             """)
-    List<Post> findAll();
+    List<Post> findAll(
+            @Param("orderBy") String orderBy,
+            @Param("orderDirection") String orderDirection
+    );
 
 
     @Select("""
@@ -54,9 +68,35 @@ public interface PostRepository {
             @Param("title") String title,
             @Param("content") String content);
 
+//    @Select("""
+//            SELECT * FROM post
+//            WHERE ${kwType} LIKE '%${keyword}%'
+//            """)
+//    List<Post> search(
+//            @Param("kwType") String kwType,
+//            @Param("keyword") String keyword);
+
     @Select("""
+            <script>
             SELECT * FROM post
-            WHERE ${kwType} LIKE '%${keyword}%'
+            <where>
+                 <choose>
+                 <when test="kwType == 'title'">
+                    title LIKE CONCAT('%', #{keyword}, '%')
+                 </when>
+                 <when test="kwType == 'content'">
+                    content LIKE CONCAT('%', #{keyword}, '%')
+                 </when>
+                 <otherwise>
+                  (
+                    title LIKE CONCAT('%', #{keyword}, '%')
+                    OR
+                    content LIKE CONCAT('%', #{keyword}, '%')
+                  )
+                 </otherwise>
+                 </choose>
+            </where> 
+            </script>
             """)
     List<Post> search(
             @Param("kwType") String kwType,

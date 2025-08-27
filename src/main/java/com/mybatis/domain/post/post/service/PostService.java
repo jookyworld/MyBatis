@@ -13,7 +13,11 @@ public class PostService {
     private final PostRepository postRepository;
 
     public List<Post> findAll() {
-        return postRepository.findAll();
+        return postRepository.findAll("", "");
+    }
+
+    public List<Post> findAll(String title, String orderDirection) {
+        return postRepository.findAll(title, orderDirection);
     }
 
     public Post findById(int id) {
