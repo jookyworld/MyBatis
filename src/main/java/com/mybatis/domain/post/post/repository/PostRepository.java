@@ -47,7 +47,10 @@ public interface PostRepository {
             SET title = #{title},
                 content = #{content},
                 modifyDate = now()
-                WHERE id = #{id}
+           WHERE id = #{id}
             """)
-    void update(int id, String title, String content);
+    void update(
+            @Param("id") int id,
+            @Param("title") String title,
+            @Param("content") String content);
 }
