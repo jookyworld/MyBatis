@@ -32,4 +32,8 @@ public class PostService {
     public void update(int id, String title, String content) {
         postRepository.update(id, title, content);
     }
+
+    public List<Post> search(String kwType, String keyword) {
+        return postRepository.search(kwType, keyword);
+    }
 }

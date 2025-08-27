@@ -53,4 +53,12 @@ public interface PostRepository {
             @Param("id") int id,
             @Param("title") String title,
             @Param("content") String content);
+
+    @Select("""
+            SELECT * FROM post
+            WHERE ${kwType} LIKE CONCAT('%', #{keyword},'%')
+            """)
+    List<Post> search(
+            @Param("kwType") String kwType,
+            @Param("keyword") String keyword);
 }

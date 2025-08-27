@@ -76,4 +76,18 @@ public class postServiceTests {
         assertThat(updatePost.getTitle()).isEqualTo("수정 제목 1");
         assertThat(updatePost.getContent()).isEqualTo("수정 내용 1");
     }
+
+    @Test
+    @DisplayName("게시물 제목 검색")
+    void t7() {
+        List<Post> posts1 = postService.search("title", "제목 1");
+        System.out.println(posts1);
+        assertThat(posts1).hasSize(1);
+
+        List<Post> posts2 = postService.search("title", "제목");
+        assertThat(posts2).hasSize(2);
+
+        List<Post> posts3 = postService.search("title", "제목 2");
+        assertThat(posts3).hasSize(1);
+    }
 }
