@@ -24,4 +24,8 @@ public class PostService {
         postRepository.create(title, content);
         return postRepository.findLastInsertId();
     }
+
+    public void deleteById(int id) {
+        postRepository.deleteById(id);
+    }
 }

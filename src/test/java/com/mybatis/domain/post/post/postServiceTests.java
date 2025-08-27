@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class postServiceTests {
 
     @Test
     @DisplayName("게시물 생성")
+    @Transactional
     void t3() {
         int id = postService.create("제목 3", "내용 3");
 
@@ -47,5 +49,15 @@ public class postServiceTests {
 
         assertThat(post.getTitle()).isEqualTo("제목 3");
         assertThat(post.getContent()).isEqualTo("내용 3");
+    }
+
+    @Test
+    @DisplayName("게시물 삭제")
+    void t5() {
+        postService.deleteById(1);
+
+        List<Post> posts = postService.findAll();
+
+        assertThat(posts).hasSize(1);
     }
 }

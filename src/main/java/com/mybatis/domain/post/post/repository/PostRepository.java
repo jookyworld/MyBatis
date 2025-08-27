@@ -1,6 +1,7 @@
 package com.mybatis.domain.post.post.repository;
 
 import com.mybatis.domain.post.post.dto.Post;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -37,4 +38,10 @@ public interface PostRepository {
             SELECT LAST_INSERT_ID()
             """)
     int findLastInsertId();
+
+    @Delete("""
+            DELETE FROM post
+            WHERE id = #{id}
+            """)
+    void deleteById(int id);
 }
