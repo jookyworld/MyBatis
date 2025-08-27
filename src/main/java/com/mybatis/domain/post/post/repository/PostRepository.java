@@ -57,24 +57,22 @@ public interface PostRepository {
     void deleteById(int id);
 
     @Update("""
+            <script>
             UPDATE post
-            SET title = #{title},
-                content = #{content},
-                modifyDate = now()
-           WHERE id = #{id}
+            <set>
+                modifyDate = NOW(),
+                 <if test="title != null and title != ''">title=#{title},</if>
+                 <if test="content != null and content != ''">content=#{content}</if>
+            </set>
+            <where>
+                 <if test="id != null and id > 0"> id = #{id} </if>
+            </where>
+            </script>
             """)
     void update(
             @Param("id") int id,
             @Param("title") String title,
             @Param("content") String content);
-
-//    @Select("""
-//            SELECT * FROM post
-//            WHERE ${kwType} LIKE '%${keyword}%'
-//            """)
-//    List<Post> search(
-//            @Param("kwType") String kwType,
-//            @Param("keyword") String keyword);
 
     @Select("""
             <script>

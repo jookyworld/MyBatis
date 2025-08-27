@@ -145,4 +145,18 @@ public class postServiceTests {
         assertThat(posts.get(0).getTitle()).isEqualTo("제목 2");
         assertThat(posts.get(1).getTitle()).isEqualTo("제목 1");
     }
+
+    @Test
+    @DisplayName("게시물 수정 - 일부 데이터만 수정")
+    void t12() {
+        Post post = postService.findById(1);
+        assertThat(post).isNotNull();
+
+        postService.update(1, "", "내용 1 수정");
+
+        Post updatePost = postService.findById(1);
+
+        assertThat(updatePost.getTitle()).isEqualTo("제목 1");
+        assertThat(updatePost.getContent()).isEqualTo("내용 1 수정");
+    }
 }
