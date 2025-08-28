@@ -39,11 +39,12 @@
 
     <update id="update">
         UPDATE member
-        SET modifyDate = now(),
-            username = #{username},
-            password = #{password},
-            name = #{name},
-            email = #{email}
+        <set>modifyDate = now(),
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="email != null and email != ''">email = #{email}</if>
+        </set>
         WHERE id = #{id}
     </update>
 
