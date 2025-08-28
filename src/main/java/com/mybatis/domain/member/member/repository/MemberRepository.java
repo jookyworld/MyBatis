@@ -8,8 +8,7 @@ import java.util.List;
 @Mapper
 public interface MemberRepository {
 
-//    @Select("""
-//            SELECT * FROM member
-//            """)
     List<Member> findAll();
+
+    Member findById(int id);
 }
