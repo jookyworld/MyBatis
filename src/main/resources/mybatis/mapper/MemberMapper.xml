@@ -48,4 +48,20 @@
         WHERE id = #{id}
     </update>
 
+    <select id="search" resultType="Member">
+        SELECT * FROM member
+        <where>
+            <choose>
+                <when test="kwType == 'username'">username Like '%${kw}%'</when>
+                <when test="kwType == 'name'">name Like CONCAT('%', #{kw},'%')</when>
+                <when test="kwType == 'email'">email Like CONCAT('%', #{kw},'%')</when>
+                <otherwise>
+                    username Like '%${kw}%' OR
+                    name Like '%${kw}%' OR
+                    email Like '%${kw}%'
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
 </mapper>

@@ -36,4 +36,8 @@ public class MemberService {
     public void update(int id, String username, String password, String name, String email) {
         memberRepository.update(id, username, password, name, email);
     }
+
+    public List<Member> search(String kwType, String kw) {
+        return memberRepository.search(kwType, kw);
+    }
 }

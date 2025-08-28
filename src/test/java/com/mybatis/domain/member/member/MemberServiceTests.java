@@ -108,4 +108,47 @@ public class MemberServiceTests {
         assertThat(updatedMember.getName()).isEqualTo("유저1 수정됨"); // 수정됨
         assertThat(updatedMember.getEmail()).isEqualTo("user1@test.com"); // 기존값 유지
     }
+
+    @Test
+    @DisplayName("회원 검색 - 사용자명으로 검색")
+    void t8() {
+        List<Member> members = memberService.search("username", "user1");
+        assertThat(members).hasSize(1);
+
+        members = memberService.search("username", "user");
+        assertThat(members).hasSize(2);
+    }
+
+    @Test
+    @DisplayName("회원 검색 - 이름으로 검색")
+    void t9() {
+        List<Member> members = memberService.search("name", "유저1");
+        assertThat(members).hasSize(1);
+
+        members = memberService.search("name", "유저");
+        assertThat(members).hasSize(2);
+    }
+
+    @Test
+    @DisplayName("회원 검색 - 이메일로 검색")
+    void t10() {
+        List<Member> members = memberService.search("email", "user1@test.com");
+        assertThat(members).hasSize(1);
+
+        members = memberService.search("email", "test.com");
+        assertThat(members).hasSize(2);
+    }
+
+    @Test
+    @DisplayName("회원 검색 - 전체 필드 검색")
+    void t11() {
+        List<Member> members = memberService.search("", "user1");
+        assertThat(members).hasSize(1);
+
+        members = memberService.search("", "유저");
+        assertThat(members).hasSize(2);
+
+        members = memberService.search("", "test.com");
+        assertThat(members).hasSize(2);
+    }
 }
