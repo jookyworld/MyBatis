@@ -29,4 +29,6 @@ public interface MemberRepository {
             @Param("email") String email);
 
     List<Member> search(String kwType, String kw);
+
+    int deleteByIds(List<Integer> ids);
 }
