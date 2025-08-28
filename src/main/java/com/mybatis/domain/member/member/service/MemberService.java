@@ -19,4 +19,13 @@ public class MemberService {
     public Member findById(int id) {
         return memberRepository.findById(id);
     }
+
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
+    public int create(String username, String password, String name, String email) {
+        memberRepository.create(username, password, name, email);
+        return memberRepository.lastInsertId();
+    }
 }

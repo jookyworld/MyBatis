@@ -13,5 +13,23 @@
         where id = #{id}
     </select>
 
+    <select id="findByUsername" resultType="Member">
+        SELECT * FROM member
+        where username = #{username}
+    </select>
+
+    <insert id="create">
+        INSERT INTO member
+        SET username = #{username},
+            password = #{password},
+            name = #{name},
+            email = #{email},
+            createDate = now(),
+            modifyDate = now()
+    </insert>
+
+    <select id="lastInsertId" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </select>
 
 </mapper>

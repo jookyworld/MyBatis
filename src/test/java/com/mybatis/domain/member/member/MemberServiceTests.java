@@ -38,4 +38,26 @@ public class MemberServiceTests {
         assertThat(member.getName()).isEqualTo("유저1");
         assertThat(member.getEmail()).isEqualTo("user1@test.com");
     }
+
+    @Test
+    @DisplayName("회원 단건 조회 - Username으로 조회")
+    void t3() {
+        Member member = memberService.findByUsername("user2");
+
+        assertThat(member.getName()).isEqualTo("유저2");
+        assertThat(member.getEmail()).isEqualTo("user2@test.com");
+    }
+
+    @Test
+    @DisplayName("회원 생성")
+    void t4() {
+        int id = memberService.create("user3", "{noop}1234", "유저3", "user3@test.com");
+
+        Member member = memberService.findById(id);
+
+        assertThat(member.getUsername()).isEqualTo("user3");
+        assertThat(member.getPassword()).isEqualTo("{noop}1234");
+        assertThat(member.getName()).isEqualTo("유저3");
+        assertThat(member.getEmail()).isEqualTo("user3@test.com");
+    }
 }

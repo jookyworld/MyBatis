@@ -11,4 +11,10 @@ public interface MemberRepository {
     List<Member> findAll();
 
     Member findById(int id);
+
+    Member findByUsername(String username);
+
+    int create(String username, String password, String name, String email);
+
+    int lastInsertId();
 }
