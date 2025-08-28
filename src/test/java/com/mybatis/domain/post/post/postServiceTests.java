@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -162,4 +163,24 @@ public class postServiceTests {
         assertThat(updatePost.getTitle()).isEqualTo("제목 1");
         assertThat(updatePost.getContent()).isEqualTo("내용 1 수정");
     }
+
+    @Test
+    @DisplayName("다중 게시물 삭제")
+    void t13() {
+        // given
+        int id3 = postService.create("제목 3", "내용 3");
+        int id4 = postService.create("제목 4", "내용 4");
+        List<Post> posts = postService.findAll();
+        assertThat(posts).hasSize(4);
+
+        // when
+        int deletedCount = postService.deleteByIds(Arrays.asList(id3, id4));
+
+        // then
+        assertThat(deletedCount).isEqualTo(2);
+
+        posts = postService.findAll();
+        assertThat(posts).hasSize(2); // 기존 2개만 남음
+    }
+
 }

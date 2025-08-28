@@ -40,4 +40,11 @@ public class PostService {
     public List<Post> search(String kwType, String keyword) {
         return postRepository.search(kwType, keyword);
     }
+
+    public int deleteByIds(List<Integer> deleteIdList) {
+        if (deleteIdList == null || deleteIdList.isEmpty()) {
+            return 0;
+        }
+        return postRepository.deleteByIdList(deleteIdList);
+    }
 }

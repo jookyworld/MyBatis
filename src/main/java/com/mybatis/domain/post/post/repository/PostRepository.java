@@ -55,6 +55,18 @@ public interface PostRepository {
             """)
     void deleteById(int id);
 
+    @Delete("""
+            <script>
+            DELETE FROM post 
+            where id IN 
+            <foreach collection="deleteIdList" item="id" open="(" separator="," close=")">
+            #{id}
+            </foreach>
+            </script>
+            """)
+    int deleteByIdList(List<Integer> deleteIdList);
+
+
     @Update("""
             <script>
             UPDATE post
