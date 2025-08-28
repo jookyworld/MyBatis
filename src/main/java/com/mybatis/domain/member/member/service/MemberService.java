@@ -28,4 +28,12 @@ public class MemberService {
         memberRepository.create(username, password, name, email);
         return memberRepository.lastInsertId();
     }
+
+    public void deleteById(int id) {
+        memberRepository.deleteById(id);
+    }
+
+    public void update(int id, String username, String password, String name, String email) {
+        memberRepository.update(id, username, password, name, email);
+    }
 }
