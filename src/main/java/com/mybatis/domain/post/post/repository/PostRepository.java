@@ -11,14 +11,13 @@ public interface PostRepository {
     @Select("""
             <script>
             SELECT * FROM post
-            <if test="orderBy!=null and orderBy!=''">
-                ORDER BY
-                <choose>
-                <when test="orderBy == 'title'">title</when>
-                <when test="orderBy == 'createDate'">createDate</when>
-                <when test="orderBy == 'modifyDate'">modifyDate</when>
-                </choose>
-                <if test="orderDirection != null and orderDirection.toLowerCase() == 'desc'">DESC</if>
+            <if test="orderBy!=null and orderBy!=''">ORDER BY
+            <choose>
+            <when test="orderBy == 'title'">title</when>
+            <when test="orderBy == 'createDate'">createDate</when>
+            <when test="orderBy == 'modifyDate'">modifyDate</when>
+            </choose>
+            <if test="orderDirection != null and orderDirection.toLowerCase() == 'desc'">DESC</if>
             </if>
             </script>
             """)
@@ -59,14 +58,14 @@ public interface PostRepository {
     @Update("""
             <script>
             UPDATE post
-            <set>
-                modifyDate = NOW(),
-                 <if test="title != null and title != ''">title=#{title},</if>
-                 <if test="content != null and content != ''">content=#{content}</if>
-            </set>
-            <where>
-                 <if test="id != null and id > 0"> id = #{id} </if>
-            </where>
+                <set>
+                     modifyDate = now(),
+                     <if test="title != null and title != ''">title=#{title},</if>
+                     <if test="content != null and content != ''">content=#{content}</if>
+                </set>
+                    <where>
+                        <if test="id != null and id>0">id=#{id}</if>       
+                    </where>
             </script>
             """)
     void update(

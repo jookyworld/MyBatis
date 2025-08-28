@@ -149,11 +149,14 @@ public class postServiceTests {
     @Test
     @DisplayName("게시물 수정 - 일부 데이터만 수정")
     void t12() {
+        //given
         Post post = postService.findById(1);
         assertThat(post).isNotNull();
 
+        //when
         postService.update(1, "", "내용 1 수정");
 
+        //then
         Post updatePost = postService.findById(1);
 
         assertThat(updatePost.getTitle()).isEqualTo("제목 1");
